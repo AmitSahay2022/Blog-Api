@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.amit.kumar.blogapi.payloads.UserDto;
 import com.amit.kumar.blogapi.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -27,7 +28,7 @@ public class UserController {
     //Create User API
     
     @PostMapping
-    public ResponseEntity<UserDto> saveUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> saveUser(@Valid @RequestBody UserDto userDto){
     	return new ResponseEntity<>(userService.createUser(userDto),HttpStatus.CREATED);
     }
     
@@ -48,7 +49,7 @@ public class UserController {
     //Update User API
     
     @PutMapping("{userId}")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto,@PathVariable long userId){
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto,@PathVariable long userId){
     	return new ResponseEntity<UserDto>(userService.updateUser(userDto, userId),HttpStatus.ACCEPTED);
     }
     
