@@ -7,11 +7,11 @@ import com.amit.kumar.blogapi.payloads.PostDto;
 public interface PostService {
 	PostDto savePost(long userId, int categoryId, PostDto postDto);
 
-	PostDto updatePost(int postId, PostDto postDto);
+	PostDto updatePost(long userId,int postId, PostDto postDto);
 
-	String deletePost(int postId);
+	String deletePost(long userId,int postId);
 
-	PostDto getPostByPostId(int postId);
+	PostDto getPostByPostId(long userId,int postId);
 
 	List<PostDto> getAllPostByUserId(long userId);
 

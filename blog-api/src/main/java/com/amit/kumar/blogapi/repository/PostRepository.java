@@ -1,6 +1,7 @@
 package com.amit.kumar.blogapi.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,4 +14,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 	List<Post> findByCategoryCategoryId(int categoryId);
 	
 	List<Post> findByCategoryCategoryTitle(String title);
+	
+	Optional<Post> findByUserIdAndPostId(long userId,int postId);
 }
