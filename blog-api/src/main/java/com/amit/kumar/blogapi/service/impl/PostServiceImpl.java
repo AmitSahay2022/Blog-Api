@@ -95,5 +95,11 @@ public class PostServiceImpl implements PostService {
 		List<PostDto> postDtos = listOfPost.stream().map(p->modelMapper.map(p, PostDto.class)).toList();
 		return postDtos;
 	}
+	//-----------This method will be used by comment Service so any user can get post and make comments
+	@Override
+	public PostDto getPostByPostId(int postId) {
+		Post post = postRepository.findById(postId).orElseThrow(()->new ResourceNotFoundException("Post not Found"));
+		return modelMapper.map(post, PostDto.class);
+	}
 
 }

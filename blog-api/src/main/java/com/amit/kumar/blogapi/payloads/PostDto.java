@@ -1,6 +1,8 @@
 package com.amit.kumar.blogapi.payloads;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -24,4 +26,6 @@ public class PostDto {
 	private Date createdAt;
 	private User user;
 	private Category category;
+	//ModelMapper is  converting List<Comment> to List<CommentDto>
+	private List<CommentDto> comments=new ArrayList<>();
 }
