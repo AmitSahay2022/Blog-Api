@@ -3,7 +3,9 @@ package com.amit.kumar.blogapi.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +27,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception{
 		security.authorizeHttpRequests(auth->{
 			auth.requestMatchers(HttpMethod.POST,"/api/users").permitAll();
+			auth.requestMatchers(HttpMethod.POST,"/api/users/login").permitAll();
 			auth.requestMatchers(HttpMethod.GET,"/api/posts/**").permitAll();
 			auth.anyRequest().authenticated();
 		});
@@ -36,5 +39,11 @@ public class SecurityConfiguration {
 		security.csrf(csrf->csrf.disable());
 		
 		return security.build();
+	}
+	
+	//--------This bean is used to create login API--------------
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+		return configuration.getAuthenticationManager();
 	}
 }
