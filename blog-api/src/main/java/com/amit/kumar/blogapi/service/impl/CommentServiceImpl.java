@@ -26,9 +26,9 @@ public class CommentServiceImpl implements CommentService {
 	private PostService postService;
 
 	@Override
-	public CommentDto createComment(long userId, int postId, CommentDto commentDto) {
+	public CommentDto createComment(int postId, CommentDto commentDto) {
 		// To make a Comment a user should exist
-		UserDto userDto = userService.getUserById(userId);
+		UserDto userDto = userService.getUserById();
 		// To make a comment, post should also exist
 		PostDto postDto = postService.getPostByPostId(postId);
 		// Convert Dtos to Entity
@@ -42,18 +42,21 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public CommentDto updateComment(long userId, int commentId, CommentDto commentDto) {
+	public CommentDto updateComment(int commentId, CommentDto commentDto) {
 		// TODO Auto-generated method stub
-		Comment comment = getCommentByUserIdAndId(userId, commentId);
+		UserDto userDto = userService.getUserById();
+		Comment comment = getCommentByUserIdAndId(userDto.getId(), commentId);
 		comment.setContent(commentDto.getContent());
 		Comment savedComment = commentRepository.save(comment);
 		return modelMapper.map(savedComment, CommentDto.class);
 	}
 
 	@Override
-	public String deleteComment(long userId, int commentId) {
+	public String deleteComment( int commentId) {
 		// TODO Auto-generated method stub
-		Comment comment = getCommentByUserIdAndId(userId, commentId);
+		UserDto userDto = userService.getUserById();
+		
+		Comment comment = getCommentByUserIdAndId(userDto.getId(), commentId);
 		commentRepository.delete(comment);
 		return "Comment Deleted Successfully";
 	}

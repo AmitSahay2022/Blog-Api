@@ -25,24 +25,23 @@ import lombok.AllArgsConstructor;
 public class PostController {
 	private PostService postService;
 
-	@PostMapping("{userId}/{categoryId}")
-	public ResponseEntity<PostDto> savePost(@PathVariable long userId, @PathVariable int categoryId,
+	@PostMapping("{categoryId}")
+	public ResponseEntity<PostDto> savePost(@PathVariable int categoryId,
 			@RequestBody PostDto postDto) {
-		return new ResponseEntity<PostDto>(postService.savePost(userId, categoryId, postDto), HttpStatus.CREATED);
+		return new ResponseEntity<PostDto>(postService.savePost(categoryId, postDto), HttpStatus.CREATED);
 
 	}
 	
-	@PutMapping("{userId}/{postId}")
-	public ResponseEntity<PostDto> updatePost(
-			@PathVariable long userId,
+	@PutMapping("{postId}")
+	public ResponseEntity<PostDto> updatePost(			
 			@PathVariable int postId,
 			@RequestBody PostDto postDto){
-		return new ResponseEntity<PostDto>(postService.updatePost(userId, postId, postDto),HttpStatus.ACCEPTED);
+		return new ResponseEntity<PostDto>(postService.updatePost(postId, postDto),HttpStatus.ACCEPTED);
 	}
 	
-	@DeleteMapping("{userId}/{postId}")
-	public ResponseEntity<String> deletePost(@PathVariable long userId,@PathVariable int postId){
-		return new ResponseEntity<String>(postService.deletePost(userId, postId),HttpStatus.OK);
+	@DeleteMapping("{postId}")
+	public ResponseEntity<String> deletePost(@PathVariable int postId){
+		return new ResponseEntity<String>(postService.deletePost(postId),HttpStatus.OK);
 	}
 	
 	@GetMapping("{userId}/{postId}")

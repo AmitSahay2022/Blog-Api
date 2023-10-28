@@ -7,11 +7,11 @@ import com.amit.kumar.blogapi.payloads.UserDto;
 public interface UserService {
 	UserDto createUser(UserDto dto);
 
-	UserDto updateUser(UserDto dto, long userId);
+	UserDto updateUser(UserDto dto);
 
-	UserDto getUserById(long userId);
+	UserDto getUserById();
 
 	List<UserDto> getAllUsers();
 
-	String deleteUser(long userId);
+	String deleteUser();
 }

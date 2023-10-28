@@ -21,25 +21,25 @@ import lombok.AllArgsConstructor;
 public class CommentController {
    private CommentService commentService;
   
-   @PostMapping("{userId}/{postId}")
-   public ResponseEntity<CommentDto> saveComment(@PathVariable long userId,
+   @PostMapping("{postId}")
+   public ResponseEntity<CommentDto> saveComment(
 		                                         @PathVariable int postId,
 		                                         @RequestBody CommentDto commentDto){
-	   return new ResponseEntity<CommentDto>(commentService.createComment(userId, postId, commentDto),HttpStatus.CREATED);
+	   return new ResponseEntity<CommentDto>(commentService.createComment(postId, commentDto),HttpStatus.CREATED);
    }
    
-   @PutMapping("{userId}/{commentId}")
-   public ResponseEntity<CommentDto> updateComment(@PathVariable long userId,
+   @PutMapping("{commentId}")
+   public ResponseEntity<CommentDto> updateComment(
 		                                           @PathVariable int commentId,
 		                                           @RequestBody CommentDto commentDto
 		                                           ){
-	   return new ResponseEntity<CommentDto>(commentService.updateComment(userId, commentId, commentDto),HttpStatus.ACCEPTED);
+	   return new ResponseEntity<CommentDto>(commentService.updateComment(commentId, commentDto),HttpStatus.ACCEPTED);
 	   
    }
-   @DeleteMapping("{userId}/{commentId}")
-   public ResponseEntity<String> deleteComment(@PathVariable long userId,
+   @DeleteMapping("{commentId}")
+   public ResponseEntity<String> deleteComment(
 		                                       @PathVariable int commentId){
 	   
-	   return new ResponseEntity<String>(commentService.deleteComment(userId, commentId),HttpStatus.OK);
+	   return new ResponseEntity<String>(commentService.deleteComment(commentId),HttpStatus.OK);
    }
 }

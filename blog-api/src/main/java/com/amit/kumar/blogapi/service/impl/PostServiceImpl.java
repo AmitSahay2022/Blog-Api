@@ -28,9 +28,9 @@ public class PostServiceImpl implements PostService {
 	private CategoryService categoryService;
 	private ModelMapper modelMapper;
 	@Override
-	public PostDto savePost(long userId, int categoryId, PostDto postDto) {
+	public PostDto savePost(int categoryId, PostDto postDto) {
 		// TODO Auto-generated method stub
-		UserDto userDto = userService.getUserById(userId);
+		UserDto userDto = userService.getUserById();
 		CategoryDto categoryDto = categoryService.getCategoryById(categoryId);
 		//Now convert Dtos to Entity
 		User user = modelMapper.map(userDto, User.class);
@@ -43,9 +43,9 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public PostDto updatePost(long userId, int postId, PostDto postDto) {
+	public PostDto updatePost(int postId, PostDto postDto) {
 		// TODO Auto-generated method stub
-		PostDto postDto2 = getPostByPostId(userId, postId);
+		PostDto postDto2 = getPostByPostId(postId);
 		Post post = modelMapper.map(postDto2, Post.class);
 		post.setContent(postDto.getContent());
 		post.setImageUrl(postDto.getImageUrl());
@@ -55,9 +55,9 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public String deletePost(long userId, int postId) {
+	public String deletePost(int postId) {
 		// TODO Auto-generated method stub
-		PostDto postDto = getPostByPostId(userId, postId);
+		PostDto postDto = getPostByPostId(postId);
 		Post post = modelMapper.map(postDto, Post.class);
 		postRepository.delete(post);
 		return "Post Deleted Successfully";
